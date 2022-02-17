@@ -4,6 +4,7 @@
 
 import os
 import sys
+sys.path.append("C:\\Users\\kjaps\\Documents\\Coding\\GitHub\\pylinac\\pylinac\\")
 from pylinac import CatPhan504, PicketFence, DRGS, DRMLC, WinstonLutz, StandardImagingQC3, StandardImagingQCkV
 from pylinac.picketfence import MLC
 from pylinac.ct import CTP515
@@ -32,7 +33,7 @@ class PicketFenceQA:
         #print(pf.results())
         #pf.plot_analyzed_image()
         
-        pf.publish_pdf(filename='1.pdf')
+        pf.publish_pdf(filename='tests_shc\\CCSB_files\\PDF_Output\\pf.pdf')
 
 class CatPhanQA:
 

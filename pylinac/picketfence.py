@@ -720,7 +720,7 @@ class PicketFence:
         canvas = pdf.PylinacCanvas(filename, page_title="Picket Fence Analysis", metadata=metadata)
         data = io.BytesIO()
         self.save_analyzed_image(data, leaf_error_subplot=True)
-        canvas.add_image(data, location=(3, 8), dimensions=(15, 15))
+        canvas.add_image(data, location=(-2.2, 1), dimensions=(25, 25))
         text = [
             'Picket Fence results:',
             f'Magnification factor (SID/SAD): {self.image.metadata.RTImageSID / self.image.metadata.RadiationMachineSAD:2.2f}',
@@ -734,7 +734,7 @@ class PicketFence:
             text += textwrap.wrap(f"Failing leaves: {self.failed_leaves()}")
         text.append(f'Gantry Angle: {self.image.gantry_angle:2.2f}')
         text.append(f'Collimator Angle: {self.image.collimator_angle:2.2f}')
-        canvas.add_text(text=text, location=(10, 25.5))
+        canvas.add_text(text=text, location=(1, 26))
         if notes is not None:
             canvas.add_text(text="Notes:", location=(1, 5.5), font_size=14)
             canvas.add_text(text=notes, location=(1, 5))

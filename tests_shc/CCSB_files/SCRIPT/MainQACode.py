@@ -13,6 +13,18 @@ from pathlib import Path
 from tkinter import filedialog
 from tkinter import *
 
+owd = os.getcwd()
+
+class ChangingDir:
+
+    def CCSB_files():
+
+        os.chdir(r'C:\Users\kjaps\Documents\Coding\GitHub\pylinac\pylinac\tests_shc\CCSB_files')
+
+    def PDF_Output():
+
+        os.chdir(r'C:\Users\kjaps\Documents\Coding\GitHub\pylinac\pylinac\tests_shc\CCSB_files\PDF_Output')
+
 #make variable for all analyze functions for the directory path
 
 class PicketFenceQA:
@@ -32,8 +44,8 @@ class PicketFenceQA:
 
         #print(pf.results())
         #pf.plot_analyzed_image()
-        
-        pf.publish_pdf(filename='tests_shc\\CCSB_files\\PDF_Output\\pf.pdf')
+        ChangingDir.PDF_Output()
+        pf.publish_pdf(filename='pf.pdf')
 
 class CatPhanQA:
 
@@ -41,7 +53,6 @@ class CatPhanQA:
     #being each preset folder name e.g. Head iCBCT, Pelvis, Head Standard. Knowing the preset folder name would load the correct directory for the
     #ANalyuze CatPhan module
     #def OrganizeFiles():
-
 
 
     def AnalyzeCatPhan():
@@ -53,7 +64,8 @@ class CatPhanQA:
         #print (root.filename)
         #cbct_folder = root.filename
 
-        cbct_folder = "C:\\Users\\kjaps\\Documents\\Coding\\Python\\PyLinac\\CBCT\\CBCT"
+        ChangingDir.CCSB_files()
+        cbct_folder = "CBCT\\CBCT"
         mycbct = CatPhan504(cbct_folder)
 
         mycbct.analyze()
@@ -75,14 +87,16 @@ class CatPhanQA:
         # mycbct.save_analyzed_image('catphan504.png')
         # generate PDF
 
-        mycbct.publish_pdf('2.pdf', 'Pelvis')
+        ChangingDir.PDF_Output()
+        mycbct.publish_pdf(filename='catphan1.pdf',notes= 'testing')
 
 class VMATQA:
     
     def AnalyzeDRGS():
 
-        open_img = r"C:\Users\kjaps\Documents\Coding\Python\PyLinac\T2\20211223_181804_6x [MV]_G243_C360_T360_3.dcm"
-        drgs_img = r"C:\Users\kjaps\Documents\Coding\Python\PyLinac\T2\20211223_181915_6x [MV]_G243_C360_T360_1.dcm"
+    
+        open_img = r"T2\20211223_181804_6x [MV]_G243_C360_T360_3.dcm"
+        drgs_img = r"T2\20211223_181915_6x [MV]_G243_C360_T360_1.dcm"
         mydrgs = DRGS(image_paths=(open_img, drgs_img))
         mydrgs.analyze(tolerance=1.5)
 
@@ -90,12 +104,12 @@ class VMATQA:
         #print(mydrgs.results())
         #view analyzed images
         mydrgs.plot_analyzed_image(show=False)
-        mydrgs.publish_pdf('drgs.pdf')
+        mydrgs.publish_pdf(filename='tests_shc\\CCSB_files\\PDF_Output\\drgs_T2.pdf')
     
     def AnalyzeDRMLC():
 
-        open_img = r"C:\Users\kjaps\Documents\Coding\Python\PyLinac\T3\20220120_175353_6x [MV]_G32_C360_T0_8.dcm"
-        dmlc_img = r"C:\Users\kjaps\Documents\Coding\Python\PyLinac\T3\20220120_175430_6x [MV]_G32_C360_T0_2.dcm"
+        open_img = r"T3\20220120_175353_6x [MV]_G32_C360_T0_8.dcm"
+        dmlc_img = r"T3\20220120_175430_6x [MV]_G32_C360_T0_2.dcm"
         mydrmlc = DRMLC(image_paths=(open_img, dmlc_img))
         mydrmlc.analyze(tolerance=1.5)
 
@@ -103,13 +117,13 @@ class VMATQA:
         #print(mydrmlc.results())
         #view analyzed images
         mydrmlc.plot_analyzed_image(show=False)
-        mydrmlc.publish_pdf('drmlc.pdf')
+        mydrmlc.publish_pdf(filename='drmlc_T3.pdf')
 
 class WLQA:
     
     def AnalyzeWL():
 
-        my_directory = r"C:\Users\kjaps\Documents\Coding\Python\PyLinac\Winston Lutz\Images"
+        my_directory = r"C:\Users\kjaps\Documents\Coding\GitHub\pylinac\pylinac\tests_shc\CCSB_files\Winston Lutz\Images"
         wl = WinstonLutz(my_directory)
         wl.analyze(bb_size_mm=5)
 
@@ -121,7 +135,7 @@ class WLQA:
         #print(wl.bb_shift_instructions())
         # LEFT: 0.1mm, DOWN: 0.22mm, ...
         # print to PDF
-        wl.publish_pdf('mywl.pdf')
+        wl.publish_pdf(filename='tests_shc\\CCSB_files\\PDF_Output\\WL.pdf')
 
 class PlanarImagingQA:
 
@@ -129,37 +143,43 @@ class PlanarImagingQA:
 
     def AnalyzeMV():
         
-        Qc3 = StandardImagingQC3(r"C:\Users\kjaps\Documents\Coding\Python\PyLinac\L2R and Dual Plannar\Processed\20220119_175938_2.5x [MV]_G360_C360_T360_96.dcm")
+        Qc3 = StandardImagingQC3(r"C:\Users\kjaps\Documents\Coding\GitHub\pylinac\pylinac\tests_shc\CCSB_files\L2R and Dual Plannar\Processed\20220119_175938_2.5x [MV]_G360_C360_T360_96.dcm")
         Qc3.analyze()
         Qc3.plot_analyzed_image(low_contrast=True, high_contrast=True, show=False)
-        Qc3.publish_pdf("Qc3 MV.pdf")
+        Qc3.publish_pdf(filename="tests_shc\\CCSB_files\\PDF_Output\\Qc3_MV.pdf")
 
     def AnalyzekV():
         
-        QckV = StandardImagingQCkV(r"C:\Users\kjaps\Documents\Coding\Python\PyLinac\L2R and Dual Plannar\Processed\20220119_180233_100 [kV] _G270_C0_T360_108.dcm")
+        QckV = StandardImagingQCkV(r"C:\Users\kjaps\Documents\Coding\GitHub\pylinac\pylinac\tests_shc\CCSB_files\L2R and Dual Plannar\Processed\20220119_180233_100 [kV] _G270_C0_T360_108.dcm")
         QckV.analyze(angle_override=135)
         QckV.plot_analyzed_image(low_contrast=True, high_contrast=True, show=False)
-        QckV.publish_pdf("Qc3 kV.pdf")
+        QckV.publish_pdf(filename="tests_shc\\CCSB_files\\PDF_Output\\Qc3_kV.pdf")
         
 class CombinePDFs:
 
     def Combine():
 
-        pdfs = ['1.pdf','2.pdf'] #input pdf files from analysis
+        pdfs = ['pf.pdf','catphan.pdf','drgs_T2.pdf','drmlc_T3.pdf', 'WL.pdf', 'Qc3_MV.pdf', 'Qc3_kV.pdf'] #input pdf files from analysis
 
         merger = PdfFileMerger()
         merger.merge(position=0, fileobj=pdfs[0], pages=(0,1))
         merger.merge(position=2, fileobj=pdfs[1], pages=(0,4))
+        merger.merge(position=5, fileobj=pdfs[2])
+        merger.merge(position=6, fileobj=pdfs[3])
+        merger.merge(position=7, fileobj=pdfs[4])
+        merger.merge(position=8, fileobj=pdfs[5])
+        merger.merge(position=9, fileobj=pdfs[6])
         merger.write("Composite.pdf")
         merger.close()
 
 
 #Run the Analysis
+
 PicketFenceQA.AnalyzePicketFence(r"C:\\Users\\kjaps\\Documents\\Coding\\Python\\PyLinac\\Picket Fence\\20220120_174712_6x [MV]_G187_C360_T0_5.dcm")
-#CatPhanQA.AnalyzeCatPhan()
-#VMATQA.AnalyzeDRGS()
-#VMATQA.AnalyzeDRMLC()
-#WLQA.AnalyzeWL()
-#PlanarImagingQA.AnalyzeMV()
-#PlanarImagingQA.AnalyzekV()
+CatPhanQA.AnalyzeCatPhan()
+# VMATQA.AnalyzeDRGS()
+# VMATQA.AnalyzeDRMLC()
+# WLQA.AnalyzeWL()
+# PlanarImagingQA.AnalyzeMV()
+# PlanarImagingQA.AnalyzekV()
 # CombinePDFs.Combine()

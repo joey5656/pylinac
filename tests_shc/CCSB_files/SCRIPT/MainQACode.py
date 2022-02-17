@@ -5,6 +5,7 @@
 import os
 import sys
 sys.path.append("C:\\Users\\kjaps\\Documents\\Coding\\GitHub\\pylinac\\pylinac\\")
+sys.path.append(r"\\fsprd.enterprise.stanfordmed.org\Userprofiles\S0340484\GitHub\pylinac\pylinac")
 from pylinac import CatPhan504, PicketFence, DRGS, DRMLC, WinstonLutz, StandardImagingQC3, StandardImagingQCkV
 from pylinac.picketfence import MLC
 from pylinac.ct import CTP515
@@ -19,11 +20,11 @@ class ChangingDir:
 
     def CCSB_files():
 
-        os.chdir(r'C:\Users\kjaps\Documents\Coding\GitHub\pylinac\pylinac\tests_shc\CCSB_files')
+        os.chdir(r'tests_shc\CCSB_files')
 
     def PDF_Output():
 
-        os.chdir(r'C:\Users\kjaps\Documents\Coding\GitHub\pylinac\pylinac\tests_shc\CCSB_files\PDF_Output')
+        os.chdir(r'tests_shc\CCSB_files\PDF_Output')
 
 #make variable for all analyze functions for the directory path
 
@@ -44,6 +45,7 @@ class PicketFenceQA:
 
         #print(pf.results())
         #pf.plot_analyzed_image()
+        print(owd)
         ChangingDir.PDF_Output()
         pf.publish_pdf(filename='pf.pdf')
 
@@ -175,8 +177,8 @@ class CombinePDFs:
 
 #Run the Analysis
 
-PicketFenceQA.AnalyzePicketFence(r"C:\\Users\\kjaps\\Documents\\Coding\\Python\\PyLinac\\Picket Fence\\20220120_174712_6x [MV]_G187_C360_T0_5.dcm")
-CatPhanQA.AnalyzeCatPhan()
+PicketFenceQA.AnalyzePicketFence(r"tests_shc\CCSB_files\Picket Fence\20220120_174712_6x [MV]_G187_C360_T0_5.dcm")
+#CatPhanQA.AnalyzeCatPhan()
 # VMATQA.AnalyzeDRGS()
 # VMATQA.AnalyzeDRMLC()
 # WLQA.AnalyzeWL()

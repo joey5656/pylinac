@@ -122,12 +122,16 @@ class VMATQA:
         mydrmlc.publish_pdf(filename='drmlc_T3.pdf')
 
 class WLQA:
-    
+
+    def OrganizeWLImages():
+
+        print("tresting")
+
     def AnalyzeWL():
 
-        my_directory = r"C:\Users\kjaps\Documents\Coding\GitHub\pylinac\pylinac\tests_shc\CCSB_files\Winston Lutz\Images"
+        my_directory = r"tests_shc\CCSB_files\Winston Lutz\Images"
         wl = WinstonLutz(my_directory)
-        wl.analyze(bb_size_mm=5)
+        wl.analyze(bb_size_mm=6)
 
         # plot all the images
         wl.plot_images(show=False)
@@ -177,10 +181,11 @@ class CombinePDFs:
 
 #Run the Analysis
 
-PicketFenceQA.AnalyzePicketFence(r"tests_shc\CCSB_files\Picket Fence\20220120_174712_6x [MV]_G187_C360_T0_5.dcm")
-#CatPhanQA.AnalyzeCatPhan()
+# PicketFenceQA.AnalyzePicketFence(r"tests_shc\CCSB_files\Picket Fence\20220120_174712_6x [MV]_G187_C360_T0_5.dcm")
+# CatPhanQA.AnalyzeCatPhan()
 # VMATQA.AnalyzeDRGS()
 # VMATQA.AnalyzeDRMLC()
+WLQA.OrganizeWLImages()
 # WLQA.AnalyzeWL()
 # PlanarImagingQA.AnalyzeMV()
 # PlanarImagingQA.AnalyzekV()

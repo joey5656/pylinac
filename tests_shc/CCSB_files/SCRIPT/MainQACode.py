@@ -11,10 +11,17 @@ from pylinac.picketfence import MLC
 from pylinac.ct import CTP515
 from PyPDF2 import PdfFileMerger, PdfFileReader, PdfFileWriter
 from pathlib import Path
-from tkinter import filedialog
-from tkinter import *
+from tkinter import filedialog, Tk
 
 owd = os.getcwd()
+class SelectDir:
+
+    root = Tk() # pointing root to Tk() to use it as Tk() in program.
+    root.withdraw() # Hides small tkinter window.
+    root.attributes('-topmost', True) # Opened windows will be active. above all windows despite of selection.
+
+    open_file = filedialog.askdirectory() # Returns opened path as str
+    print(open_file) 
 
 class ChangingDir:
 
@@ -129,7 +136,7 @@ class WLQA:
 
     def AnalyzeWL():
 
-        my_directory = r"tests_shc\CCSB_files\Winston Lutz\Images"
+        my_directory = r"tests_shc\CCSB_files\SBLA1_2_2022\WL_2_2022"
         wl = WinstonLutz(my_directory)
         wl.analyze(bb_size_mm=6)
 
@@ -141,7 +148,7 @@ class WLQA:
         #print(wl.bb_shift_instructions())
         # LEFT: 0.1mm, DOWN: 0.22mm, ...
         # print to PDF
-        wl.publish_pdf(filename='tests_shc\\CCSB_files\\PDF_Output\\WL.pdf')
+        wl.publish_pdf(filename='tests_shc\\CCSB_files\\PDF_Output\\WL_2_2022.pdf')
 
 class PlanarImagingQA:
 
@@ -185,7 +192,7 @@ class CombinePDFs:
 # CatPhanQA.AnalyzeCatPhan()
 # VMATQA.AnalyzeDRGS()
 # VMATQA.AnalyzeDRMLC()
-WLQA.OrganizeWLImages()
+# WLQA.OrganizeWLImages()
 # WLQA.AnalyzeWL()
 # PlanarImagingQA.AnalyzeMV()
 # PlanarImagingQA.AnalyzekV()

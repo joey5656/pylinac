@@ -808,7 +808,7 @@ class FieldAnalysis:
         """Plot the image and profile extraction overlay"""
         if axis is None:
             fig, axis = plt.subplots()
-        axis.imshow(self.image.array, cmap=get_dicom_cmap())
+        #axis.imshow(self.image.array, cmap=get_dicom_cmap())
 
         # vertical line/rect
         width = abs(self._left_v_index-self._right_v_index)

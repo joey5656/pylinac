@@ -4,9 +4,11 @@
 
 import os
 import sys
+
+from zmq import device
 sys.path.append("C:\\Users\\kjaps\\Documents\\Coding\\GitHub\\pylinac\\pylinac\\")
 sys.path.append(r"\\fsprd.enterprise.stanfordmed.org\Userprofiles\S0340484\GitHub\pylinac\pylinac")
-from pylinac import CatPhan504, PicketFence, DRGS, DRMLC, WinstonLutz, StandardImagingQC3, StandardImagingQCkV
+from pylinac import CatPhan504, PicketFence, DRGS, DRMLC, WinstonLutz, StandardImagingQC3, StandardImagingQCkV, DeviceFieldAnalysis, Device, Protocol
 from pylinac.picketfence import MLC
 from pylinac.ct import CTP515
 from PyPDF2 import PdfFileMerger, PdfFileReader, PdfFileWriter
@@ -16,12 +18,13 @@ from tkinter import filedialog, Tk
 owd = os.getcwd()
 class SelectDir:
 
-    root = Tk() # pointing root to Tk() to use it as Tk() in program.
-    root.withdraw() # Hides small tkinter window.
-    root.attributes('-topmost', True) # Opened windows will be active. above all windows despite of selection.
+    def GetDirectory():
+        root = Tk() # pointing root to Tk() to use it as Tk() in program.
+        root.withdraw() # Hides small tkinter window.
+        root.attributes('-topmost', True) # Opened windows will be active. above all windows despite of selection.
 
-    open_file = filedialog.askdirectory() # Returns opened path as str
-    print(open_file) 
+        open_file = filedialog.askdirectory() # Returns opened path as str
+        print(open_file) 
 
 class ChangingDir:
 
@@ -167,7 +170,21 @@ class PlanarImagingQA:
         QckV.analyze(angle_override=135)
         QckV.plot_analyzed_image(low_contrast=True, high_contrast=True, show=False)
         QckV.publish_pdf(filename="tests_shc\\CCSB_files\\PDF_Output\\Qc3_kV.pdf")
+
+class FieldAnalysis:
+
+    def AnalyzeFA():
         
+        fa = DeviceFieldAnalysis.from_demo_image()
+        fa.analyze(protocol=Protocol.VARIAN, is_FFF=True)
+        fa.publish_pdf(filename = "tests_shc\\CCSB_files\\PDF_Output\\fatest1.pdf")
+        #fs_6X_path= r"tests_shc\CCSB_files\FlatnessAndSym\1 January\6X 25x25.prm"
+       # fa = DeviceFieldAnalysis(path=fs_6X_path, device=Device.PROFILER)
+        #fa.analyze(protocol=Protocol.VARIAN)
+        #fa.plot_analyzed_image()
+        #fa.save_analyzed_image("tests_shc\\CCSB_files\\PDF_Output\\fatestimage.jpg")
+        #fa.publish_pdf(filename = "tests_shc\\CCSB_files\\PDF_Output\\fatest1.pdf")
+
 class CombinePDFs:
 
     def Combine():
@@ -197,3 +214,4 @@ class CombinePDFs:
 # PlanarImagingQA.AnalyzeMV()
 # PlanarImagingQA.AnalyzekV()
 # CombinePDFs.Combine()
+FieldAnalysis.AnalyzeFA()

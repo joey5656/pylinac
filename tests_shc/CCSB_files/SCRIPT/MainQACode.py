@@ -5,13 +5,12 @@
 import os
 import sys
 
-from zmq import device
-sys.path.append("C:\\Users\\kjaps\\Documents\\Coding\\GitHub\\pylinac\\pylinac\\")
-sys.path.append(r"\\fsprd.enterprise.stanfordmed.org\Userprofiles\S0340484\GitHub\pylinac\pylinac")
+sys.path.append(r"C:\Users\Joey\Documents\GitHub\pylinac")
+#sys.path.append(r"\\fsprd.enterprise.stanfordmed.org\Userprofiles\S0340484\GitHub\pylinac\pylinac")
 from pylinac import CatPhan504, PicketFence, DRGS, DRMLC, WinstonLutz, StandardImagingQC3, StandardImagingQCkV, DeviceFieldAnalysis, Device, Protocol
 from pylinac.picketfence import MLC
 from pylinac.ct import CTP515
-from PyPDF2 import PdfFileMerger, PdfFileReader, PdfFileWriter
+#from PyPDF2 import PdfFileMerger, PdfFileReader, PdfFileWriter
 from pathlib import Path
 from tkinter import filedialog, Tk
 
@@ -179,7 +178,7 @@ class FieldAnalysis:
         fa.analyze(protocol=Protocol.VARIAN, is_FFF=True)
         fa.publish_pdf(filename = "tests_shc\\CCSB_files\\PDF_Output\\fatest1.pdf")
         #fs_6X_path= r"tests_shc\CCSB_files\FlatnessAndSym\1 January\6X 25x25.prm"
-       # fa = DeviceFieldAnalysis(path=fs_6X_path, device=Device.PROFILER)
+        #fa = DeviceFieldAnalysis(path=fs_6X_path, device=Device.PROFILER)
         #fa.analyze(protocol=Protocol.VARIAN)
         #fa.plot_analyzed_image()
         #fa.save_analyzed_image("tests_shc\\CCSB_files\\PDF_Output\\fatestimage.jpg")
@@ -208,10 +207,10 @@ class CombinePDFs:
 # PicketFenceQA.AnalyzePicketFence(r"tests_shc\CCSB_files\Picket Fence\20220120_174712_6x [MV]_G187_C360_T0_5.dcm")
 # CatPhanQA.AnalyzeCatPhan()
 # VMATQA.AnalyzeDRGS()
-# VMATQA.AnalyzeDRMLC()
+VMATQA.AnalyzeDRMLC()
 # WLQA.OrganizeWLImages()
 # WLQA.AnalyzeWL()
 # PlanarImagingQA.AnalyzeMV()
 # PlanarImagingQA.AnalyzekV()
 # CombinePDFs.Combine()
-FieldAnalysis.AnalyzeFA()
+# FieldAnalysis.AnalyzeFA()

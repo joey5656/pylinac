@@ -325,6 +325,7 @@ class VMATBase:
             ax.autoscale(axis='x', tight=True)
             ax.legend(loc=8, fontsize='large')
             ax.grid()
+            ax.set_ylabel("Normalzied Response")
 
         if show:
             plt.show()
@@ -383,10 +384,10 @@ class VMATBase:
             self._save_analyzed_subimage(data, subimage=img)
             canvas.add_image(data, location=(x, y), dimensions=(width, 18))
             # canvas.add_text(text=f"{img} Image", location=(x + 2, y + 10), font_size=18)
-        canvas.add_text(text='Open Image', location=(4, 22), font_size=18)
-        canvas.add_text(text=f'{self.open_image.base_path}', location=(4, 21.5))
-        canvas.add_text(text='DMLC Image', location=(14, 22), font_size=18)
-        canvas.add_text(text=f'{self.dmlc_image.base_path}', location=(14, 21.5))
+        canvas.add_text(text='Open Image', location=(3.5, 22), font_size=18)
+        canvas.add_text(text=f'{self.open_image.base_path}', location=(1, 21.5))
+        canvas.add_text(text='DMLC Image', location=(13.5, 22), font_size=18)
+        canvas.add_text(text=f'{self.dmlc_image.base_path}', location=(11, 21.5))
         canvas.add_text(text='Median profiles', location=(8, 12), font_size=18)
         text = [f'{self._result_header} VMAT results:',
                 f'Source-to-Image Distance (mm): {self.open_image.sid:2.0f}',
@@ -394,7 +395,7 @@ class VMATBase:
                 f'Absolute mean deviation (%): {self.avg_abs_r_deviation:2.2f}',
                 f'Maximum deviation (%): {self.max_r_deviation:2.2f}',
                 ]
-        canvas.add_text(text=text, location=(10, 25.5))
+        canvas.add_text(text=text, location=(1, 25.5))
         if notes is not None:
             canvas.add_text(text="Notes:", location=(1, 5.5), font_size=14)
             canvas.add_text(text=notes, location=(1, 5))

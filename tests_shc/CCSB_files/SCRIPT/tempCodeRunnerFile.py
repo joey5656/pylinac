@@ -1,1 +1,1 @@
-StandardImagingQC3
+publish_pdf

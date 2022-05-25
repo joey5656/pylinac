@@ -1,9 +1,28 @@
 import sys
+import tkinter
+
 sys.path.append(r"C:\Users\Joey\Documents\GitHub\pylinac\pylinac")
 
 from pylinac import DRGS, DRMLC
+from tkinter import filedialog
+
+class ChoosingFiles:
+
+    def GetDirectory():
+
+        tkinter.Tk().withdraw() # prevents an empty tkinter window from appearing
+        folder_path = filedialog.askdirectory()
+
+    def GetFiles():
+
+        tkinter.Tk().withdraw() # prevents an empty tkinter window from appearing
+        folder_path = filedialog.askopenfilenames()
+        print(folder_path[1])
+
 class VMATQA:
     
+    #ChoosingFiles.GetDirectory()
+
     def AnalyzeDRGS():
 
         open_img = r"tests_shc\CCSB_files\T2\20211223_181804_6x [MV]_G243_C360_T360_3.dcm"
@@ -25,5 +44,12 @@ class VMATQA:
         #print(mydrmlc.results())
         mydrmlc.publish_pdf(filename='tests_shc\\CCSB_files\\PDF_Output\\drmlc_T3.pdf')
 
-VMATQA.AnalyzeDRGS()
-VMATQA.AnalyzeDRMLC()
+#ChoosingFiles.GetDirectory()
+ChoosingFiles.GetFiles()
+
+#VMATQA.AnalyzeDRGS()
+#VMATQA.AnalyzeDRMLC()
+
+#Want to choose folder, scan folder, rename into new folder within choosen folder, like Piotr 
+#Then chooses the images as open, iterates for all pairs of images
+#adds note automatically for each energy?

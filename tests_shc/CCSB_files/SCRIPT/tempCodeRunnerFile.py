@@ -1,1 +1,1 @@
-publish_pdf
+each energy?

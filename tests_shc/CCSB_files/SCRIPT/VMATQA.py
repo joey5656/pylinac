@@ -2,56 +2,52 @@ import sys
 sys.path.append(r"C:\Users\Joey\Documents\GitHub\pylinac\pylinac")
 
 from pylinac import DRGS, DRMLC
+
 import tkinter as tk
 from tkinter import filedialog
+import pathlib
 
 class ChoosingFiles:
 
-    def GetDirectory():
+    open_img = None
+    mlc_img = None
 
-        tk.Tk().withdraw() # prevents an empty tkinter window from appearing
-        folder_path = tk.filedialog.askdirectory()
+    #def GetDirectory():
+    #
+    #    tk.Tk().withdraw() # prevents an empty tkinter window from appearing
+    #    folder_path = tk.filedialog.askdirectory()
 
     def GetFiles(file_title):
         
         def convertTuple(tup):
-            str = ''.join(tup)
+            str = ', '.join(tup)
             return str
-
+                
         def file_select():
+            
             #tkinter.Tk().withdraw() # prevents an empty tkinter window from appearing
-            folder_path = tk.filedialog.askopenfilenames()
-            lbl.config(text = "Choosen Files: "+ convertTuple(folder_path))
 
-                # Top level window
-        frame = tk.Tk()
-        frame.title(file_title)
-        frame.geometry('400x200')
-        # Function for getting Input
-        # from textbox and printing it 
-        # at label widget
-        
-        #def printInput():
-        #    inp = inputtxt.get(1.0, "end-1c")
-        #    lbl.config(text = "Provided Input: "+inp)
-        
-        # TextBox Creation
-        #inputtxt = tk.Text(frame,
-        #                height = 5,
-        #                width = 20)
-        #
-        #inputtxt.pack()
-        
+            folder_path = tk.filedialog.askopenfilenames()
+            ChoosingFiles.open_img = pathlib.PureWindowsPath(folder_path[0])
+            ChoosingFiles.mlc_img = pathlib.PureWindowsPath(folder_path[1])
+            greeting.config(text = "Choosen Files: "+ convertTuple(folder_path))
+
+        # Top level window
+        window = tk.Tk()
+        window.title(file_title)
+        window.geometry('400x100')
+
+        # Label Creation
+        greeting = tk.Label(window, text = "Hello, please select an (1) open iamge and a (2) DMLC image. More than one file can be selected at once by holding Crtl on the keyboard.", wraplength=400, justify="center")
+        greeting.pack()
+
         # Button Creation
-        printButton = tk.Button(frame,
-                                text = "Select Files", 
-                                command = file_select)
+        printButton = tk.Button(window, text = "Select Files", command = file_select)
         printButton.pack()
         
-        # Label Creation
-        lbl = tk.Label(frame, text = "")
-        lbl.pack()
-        frame.mainloop()
+        # Puts window on top
+        window.lift()
+        window.mainloop()
 
 class VMATQA:
     
@@ -59,11 +55,12 @@ class VMATQA:
 
     def AnalyzeDRGS():
 
-        ChoosingFiles.GetFiles("T2 Test")
+        chooser = ChoosingFiles.GetFiles("T2 Test")
+ 
+        open_img = str(ChoosingFiles.open_img)
+        mlc_img = str(ChoosingFiles.mlc_img)
 
-        open_img = r"tests_shc\CCSB_files\T2\20211223_181804_6x [MV]_G243_C360_T360_3.dcm"
-        drgs_img = r"tests_shc\CCSB_files\T2\20211223_181915_6x [MV]_G243_C360_T360_1.dcm"
-        mydrgs = DRGS(image_paths=(open_img, drgs_img))
+        mydrgs = DRGS(image_paths=(open_img, mlc_img))
         mydrgs.analyze(tolerance=1.5)
 
         mydrgs.plot_analyzed_image(show=False)

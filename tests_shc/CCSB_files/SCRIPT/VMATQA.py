@@ -1,29 +1,65 @@
 import sys
-import tkinter
-
 sys.path.append(r"C:\Users\Joey\Documents\GitHub\pylinac\pylinac")
 
 from pylinac import DRGS, DRMLC
+import tkinter as tk
 from tkinter import filedialog
 
 class ChoosingFiles:
 
     def GetDirectory():
 
-        tkinter.Tk().withdraw() # prevents an empty tkinter window from appearing
-        folder_path = filedialog.askdirectory()
+        tk.Tk().withdraw() # prevents an empty tkinter window from appearing
+        folder_path = tk.filedialog.askdirectory()
 
-    def GetFiles():
+    def GetFiles(file_title):
+        
+        def convertTuple(tup):
+            str = ''.join(tup)
+            return str
 
-        tkinter.Tk().withdraw() # prevents an empty tkinter window from appearing
-        folder_path = filedialog.askopenfilenames()
-        print(folder_path[1])
+        def file_select():
+            #tkinter.Tk().withdraw() # prevents an empty tkinter window from appearing
+            folder_path = tk.filedialog.askopenfilenames()
+            lbl.config(text = "Choosen Files: "+ convertTuple(folder_path))
+
+                # Top level window
+        frame = tk.Tk()
+        frame.title(file_title)
+        frame.geometry('400x200')
+        # Function for getting Input
+        # from textbox and printing it 
+        # at label widget
+        
+        #def printInput():
+        #    inp = inputtxt.get(1.0, "end-1c")
+        #    lbl.config(text = "Provided Input: "+inp)
+        
+        # TextBox Creation
+        #inputtxt = tk.Text(frame,
+        #                height = 5,
+        #                width = 20)
+        #
+        #inputtxt.pack()
+        
+        # Button Creation
+        printButton = tk.Button(frame,
+                                text = "Select Files", 
+                                command = file_select)
+        printButton.pack()
+        
+        # Label Creation
+        lbl = tk.Label(frame, text = "")
+        lbl.pack()
+        frame.mainloop()
 
 class VMATQA:
     
     #ChoosingFiles.GetDirectory()
 
     def AnalyzeDRGS():
+
+        ChoosingFiles.GetFiles("T2 Test")
 
         open_img = r"tests_shc\CCSB_files\T2\20211223_181804_6x [MV]_G243_C360_T360_3.dcm"
         drgs_img = r"tests_shc\CCSB_files\T2\20211223_181915_6x [MV]_G243_C360_T360_1.dcm"
@@ -44,10 +80,7 @@ class VMATQA:
         #print(mydrmlc.results())
         mydrmlc.publish_pdf(filename='tests_shc\\CCSB_files\\PDF_Output\\drmlc_T3.pdf')
 
-#ChoosingFiles.GetDirectory()
-ChoosingFiles.GetFiles()
-
-#VMATQA.AnalyzeDRGS()
+VMATQA.AnalyzeDRGS()
 #VMATQA.AnalyzeDRMLC()
 
 #Want to choose folder, scan folder, rename into new folder within choosen folder, like Piotr 
